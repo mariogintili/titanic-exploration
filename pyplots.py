@@ -44,22 +44,22 @@ train = pd.read_csv("train.csv")
 test = pd.read_csv("test.csv")
 
 survived  = train["Survived"]
-age_males_surv = train["Age"][train["Sex"] == "male"][train["Survived"] == 1]
-age_males_dead = train["Age"][train["Sex"] == "male"][train["Survived"] == 0]
-age_females_surv = train["Age"][train["Sex"] == "female"][train["Survived"] == 1]
-age_females_dead = train["Age"][train["Sex"] == "female"][train["Survived"] == 0]
+age_males_surv = train["Age"].fillna(120)[train["Sex"] == "male"][train["Survived"] == 1]
+age_males_dead = train["Age"].fillna(120)[train["Sex"] == "male"][train["Survived"] == 0]
+age_females_surv = train["Age"].fillna(120)[train["Sex"] == "female"][train["Survived"] == 1]
+age_females_dead = train["Age"].fillna(120)[train["Sex"] == "female"][train["Survived"] == 0]
 
 sex = train["Sex"]
 
 features  = train.drop("Survived", axis = 1)
-age_clear = features["Age"].fillna(0)
 
+print(age_clear[5])
 plt.hist([age_males_surv, age_males_dead, age_females_surv, age_females_dead],
-         bins=[0,10,20,30,40,50,60,70,80,90], color=['green', 'blue', 'red', 'brown'], label=['Male Survived', 'Male Deceased', 'Female Survived', 'Female Deceased'])
+         bins=[0,10,20,30,40,50,60,70,80,90,100,110,120,130], color=['green', 'blue', 'red', 'brown'], label=['Male Survived', 'Male Deceased', 'Female Survived', 'Female Deceased'])
 
 #plt.legend(handles=[blue_line])
 plt.legend()
 plt.xlabel('Age')
-plt.ylabel('Quantity')
+plt.ylabel('People')
 plt.title('Correlating age and gender with survival')
 plt.grid(True)
